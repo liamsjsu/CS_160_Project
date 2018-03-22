@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Eggplant</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+        <meta name="google-signin-scope" content="profile email">
+        <meta name="google-signin-client_id" content="773730468254-82509noo29h6q37nbepago8ksko4a2as.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+	</head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Intro -->
+					<div id="intro">
+						<h1>This is<br />
+						Eggplant</h1>
+						<p>A free log processing tool created by:<br />
+						Liam Jensen, Gabriella Qiu, Patrick Leung, Henry Ngo, and Blanchy Polancos</p>
+						<ul class="actions">
+							<li><a href="#header" class="button icon solo fa-arrow-down scrolly">Continue</a></li>
+						</ul>
+					</div>
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Eggplant</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li class="active"><a href="index.html">This is Eggplant</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://github.com/liamsjsu/CS_160_Project/" class="icon fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Featured Post -->
+							<article class="post featured">
+								<header class="major">
+									<span class="date">March 15, 2018</span>
+									<h2><a href="#">Log Processing<br />
+									Wherever and Whenever</a></h2>
+									<p>Aenean ornare velit lacus varius enim ullamcorper proin aliquam<br />
+									facilisis ante sed etiam magna interdum congue. Lorem ipsum dolor<br />
+									amet nullam sed etiam veroeros.</p>
+                                    
+                                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                                    <script>
+                                    function onSuccess(googleUser) {
+                                      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+                                    }
+                                    function onFailure(error) {
+                                      console.log(error);
+                                    }
+                                    function renderButton() {
+                                      gapi.signin2.render('my-signin2', {
+                                        'scope': 'profile email',
+                                        'width': 240,
+                                        'height': 50,
+                                        'longtitle': true,
+                                        'theme': 'dark',
+                                        'onsuccess': onSuccess,
+                                        'onfailure': onFailure
+                                      });
+                                    }
+                                    </script>
+								</header>
+								<ul class="actions">
+									<li><a href="#" class="button big">Back to Top</a></li>
+								</ul>
+							</article>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section class="split contact">
+							<section class="alt">
+								<h3>Address</h3>
+								<p>1234 Somewhere Road #87257<br />
+								Nashville, TN 00000-0000</p>
+							</section>
+							<section>
+								<h3>Phone</h3>
+								<p><a href="#">(000) 000-0000</a></p>
+							</section>
+							<section>
+								<h3>Email</h3>
+								<p><a href="#">info@untitled.tld</a></p>
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<li><a href="https://github.com/liamsjsu/CS_160_Project/" class="icon alt fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
