@@ -1,0 +1,1 @@
+this readme is just a reminder to make a picture tut for running this, though yall probably already know how
