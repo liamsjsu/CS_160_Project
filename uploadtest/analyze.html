@@ -1,0 +1,13 @@
+<script src="jquery-3.3.1.min.js"></script>
+<p></p>
+<script type="text/javascript">
+  $(document).ready(function(){
+      $.ajax({
+          url:"phptest2.php", //the page containing php script
+          type: "POST", //request type
+      success:function(result){
+          $("p").html(result);
+    }
+    });
+  })
+</script>

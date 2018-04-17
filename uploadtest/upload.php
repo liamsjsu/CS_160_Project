@@ -2,7 +2,7 @@
 
 $file_name = basename($_FILES["logFile"]["name"]); // saved to db
 $unique_id = uniqid();
-$file_dir = 'uploads/'.$unique_id.'/';
+$file_dir = '/uploads/'.$unique_id.'/';
 $file_path = $file_dir.$file_name; // saved to db
 $uploadOk = 1;
 $fileExtension = strtolower(pathinfo($file_path,PATHINFO_EXTENSION));
@@ -40,14 +40,14 @@ if ($uploadOk == 0) {
     }
     
     // DON'T FORGET \/ \/ \/
-    // once i check out session details, i can insert the session's userID into the SQL statement below
+    // once i check out html session details, i can insert the session's userID into the SQL statement below
 
     $statement = "insert into logFiles (file_name, file_path, owner) 
     values ('$file_name', '$file_path', 'test_owner')";
     if ($conn->query($statement) === TRUE) {
-        echo "New log inserted successfully";
+        //echo "New log inserted successfully<br>";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error: " . $sql . "<br>" . $conn->error . "<br>";
     }
     $conn->close();
 
@@ -58,10 +58,16 @@ if ($uploadOk == 0) {
 
     // upload file to directory $file_path
     if (move_uploaded_file($_FILES["logFile"]["tmp_name"], $file_path)) {
-        echo "The file ".$file_name. " has been uploaded.";
+        //echo "The file ".$file_name. " has been uploaded.<br>";
+        //echo "<a href='/uploadtest/files.php'>See your files</a><br>";
+        
+        // file successfully uploaded, redirect to files
+        header("Location: /uploadtest/files.php");
+        die();
     } else {
         echo "Sorry, there was an error uploading your file.";
     }
+
 }
 
 ?>
