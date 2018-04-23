@@ -19,9 +19,21 @@ if ($result->num_rows > 0) {
         // $_POST['data'][$row['file_name']] <- this took me soooo long to get right
         // the issue was that PHP converts the name field's special characters (such as periods and spaces) to underscores
         // the work-around used was turning the name into an array so that the periods and spaces in file name in $_POST are left untouched
+        // and can be used in sql statements without further string parsing
         $statement = "delete from logfiles where file_path = '".$_POST['data'][$row['file_name']]."'";
         if ($conn->query($statement) === TRUE) {
-            echo "File deleted successfully<br>";
+            echo "File deleted from database successfully<br>";
+
+            // misspelled a directory and almost deleted everything in my computer... thank god for permissions.
+            echo "Deleting file from server:...<br>";
+            $dir = dirname($row['file_path']);
+            array_map('unlink', glob("$dir/*.*"));
+            rmdir($dir);
+            if (!file_exists($dir)) {
+                echo "File deleted from server successfully<br>";
+            }
+
+
         } else {
             echo "Error deleting file from database: " . $conn->error . "<br>";
         }
@@ -29,7 +41,7 @@ if ($result->num_rows > 0) {
 } else { // no data found to delete
   echo "Nothing to delete.<br>";
 }
-
+echo "<a href='files.php'>Back to Files</a>";
 // Once file is deleted, go back to file manager
 header("Location: files.php");
 die();

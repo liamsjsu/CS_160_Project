@@ -32,7 +32,7 @@ echo
 
 $owner = 'test_owner';
 
-echo "<a href='/uploadtest/upload.html'>Back to Upload</a><br><br>";
+echo "<a href='upload.html'>Back to Upload</a><br><br>";
 echo "Logs belonging to " . $owner . ":<br>";
 echo "<form action='delete.php' method='post'>";
 echo "<table border='1'>";
