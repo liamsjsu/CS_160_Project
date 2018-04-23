@@ -26,11 +26,11 @@ if ($result->num_rows > 0) {
 
             // misspelled a directory and almost deleted everything in my computer... thank god for permissions.
             echo "Deleting file from server:...<br>";
-            $dir = dirname($row['file_path']);
-            array_map('unlink', glob("$dir/*.*"));
-            rmdir($dir);
+            $dir = dirname($row['file_path']); // get the directory the file is in
+            array_map('unlink', glob("$dir/*.*")); // delete everything within that directory
+            rmdir($dir); // delete the directory itself
             if (!file_exists($dir)) {
-                echo "File deleted from server successfully<br>";
+                echo "File deleted from server successfully<br>"; // nice B)
             }
 
 
