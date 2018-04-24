@@ -29,27 +29,6 @@ if ($uploadOk == 0) {
     echo "File not uploaded.<br>";
 // if everything is ok, try to upload file
 } else {
-    // connect to mysql database
-    $host = 'localhost';
-    $user = 'root';
-    $pass = 'root';
-    $db = 'testdb';
-    $conn = new mysqli($host, $user, $pass, $db);
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-    
-    // DON'T FORGET \/ \/ \/
-    // once i check out html session details, i can insert the session's userID into the SQL statement below
-
-    $statement = "insert into logFiles (file_name, file_path, owner) 
-    values ('$file_name', '$file_path', 'test_owner')";
-    if ($conn->query($statement) === TRUE) {
-        echo "New log inserted successfully<br>";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error . "<br>";
-    }
-    $conn->close();
 
     // if directory doesnt exist, create it
     if (! is_dir($file_dir)) {
@@ -58,6 +37,45 @@ if ($uploadOk == 0) {
 
     // upload file to directory $file_path
     if (move_uploaded_file($_FILES["logFile"]["tmp_name"], $file_path)) {
+
+        // file successfully uploaded to server, insert file into database
+        // connect to mysql database
+        $host = 'localhost';
+        $user = 'root';
+        $pass = 'root';
+        $db = 'testdb';
+        $conn = new mysqli($host, $user, $pass, $db);
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        
+        // DON'T FORGET \/ \/ \/
+        // once i check out html session details, i can insert the session's userID into the SQL statement below
+
+        // insertion into db
+        $statement = "insert into logFiles (file_name, file_path, owner) 
+        values ('$file_name', '$file_path', 'test_owner')";
+        if ($conn->query($statement) === TRUE) {
+            echo "New log inserted successfully<br>";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error . "<br>";
+        }
+        $conn->close();
+
+        // create new index for graph stuff
+        $index = fopen($file_dir."index.php", "w") or die("Unable to create file!");
+        fwrite($index,
+            // edit $content to insert graphs
+            '<?php
+
+            $content = "'."this is a test index for file $file_name".'";
+
+            echo \'<link href="../../eggplant.css" rel="stylesheet" type="text/css">\';
+            include "../../Template.php";
+            ?>');
+        fclose($index);
+
+        // confirmation
         echo "The file ".$file_name. " has been uploaded to $file_dir.<br>";
         echo "<a href='/uploadtest/files.php'>See your files</a><br>";
         

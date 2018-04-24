@@ -53,6 +53,7 @@ if ($result->num_rows > 0) { // data found (at least 1 row)
   while ($row = $result->fetch_assoc()) {
       echo "<tr>";
       echo "<td>".$row["file_name"]."</td>";
+      echo "<td><a href='".dirname($row['file_path'])."'>View Analysis</a></td>";
       echo "<td><button type='submit' value='".$row["file_path"]."' name='data[".$row["file_name"]."]'>Delete</button></td>";
       echo "</tr>";
   }
