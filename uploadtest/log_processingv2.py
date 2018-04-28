@@ -1,4 +1,6 @@
 '''
+WEEK OF 4/28:
+    added graphs + prints grouped to bottom of code
 
 WEEK OF 4/22:
     make get_info_name and get_thread_names faster
@@ -45,11 +47,12 @@ or maybe as a set
 This allows entries in ERROR to be searched/sorted by error keywords. Note that error lines are not processed like INFO lines
 
 '''
-#TODO: INFO and ERROR entries are not stored in dictionaries yet. Is there a better way to store them?
 
 import sys
 from collections import Counter, defaultdict
 import plotly
+from plotly.offline import plot
+import plotly.graph_objs as go
 plotly.tools.set_credentials_file(username='cs160teameggplant', api_key='ILajujL06lsyqJjLjur9')
 
 errors = ['exception', 'WARN ', '[warn]', 'fail', 'unauthorized', 'AUTHORIZATION_FAILURE', 'timeout', 'refused', 'nosuchpageexception', ' 401 ', ' 401\n', ' 500 '] # error
@@ -294,6 +297,21 @@ def count_error_by_type(err_list):
 def count_totals(keywords, result_list):
     return Counter(result_list)
 
+# ========================================= MAKING THE GRAPH
+
+def makeGraphFromArr(labels, stats):
+    data = [go.Bar(
+        x = labels,
+        y = stats
+    )]
+
+def makeGraphFromDict(diction):
+    my_plot_div = plot([go.Bar(
+        x=list(diction.keys()),
+        y=list(diction.values()))],
+        output_type='div',show_link=False,include_plotlyjs=False)
+    return my_plot_div
+
 # ================ MAIN FILE OPENER
 
 
@@ -361,11 +379,7 @@ with open(log_file, "r") as infile:
         # store error type in date slot
 
 
-####### FOR TESTING ##########
-print("%d unique threadnames, %d unique process names" % (len(list_threads), len(list_names))) ######## FOR TESTING; DELETE LATER
-print("%d lines read\n%d info\n%d errors" % (lines, info, error))
-
-
+# ================ PRINTING THE OUTPUT
 
 ######### TESTING PROCESS RETRIEVAL #######
 
@@ -379,23 +393,35 @@ print("%d lines read\n%d info\n%d errors" % (lines, info, error))
 #print(all_proc)
 #print(get_most('',0,get_info_names()))
 
-########## TESTING DOCKER/ VOLUME/ CONTROLLER STATS ##########
+########## DOCKER/ VOLUME/ CONTROLLER STATS ##########
 
 stats = count_info_by_type(info_all_proc)
-print("\nDockerServerController usage: %d\nVolume usage: %d\nProvision usage: %d\nBlueprint usage: %d\nHandler usage: %d" % (stats[0], stats[1], stats[2], stats[3], stats[4]))
+total_stats = sum(stats)
+dsc = float(stats[0]/total_stats*100.0)
+vol = float(stats[1]/total_stats*100.0)
+prov = float(stats[2]/total_stats*100.0)
+blue = float(stats[3]/total_stats*100.0)
+han = float(stats[4]/total_stats*100.0)
+total_stats_print = "\nDockerServerController usage: %d %% \nVolume usage: %d %% \nProvision usage: %d %% \nBlueprint usage: %d %% \nHandler usage: %d %%" % (dsc, vol, prov, blue, han)
 
-########## TESTING RETURNING MOST FREQUENT OCCURENCES ##########
+########## RETURNING MOST FREQUENT OCCURENCES + GRAPH ##########
 
-print("\nMost frequent processes (all):")
-print(get_most('', 5, info_all_proc))
-print("\nMost frequent processes (docker only): This is just to demonstrate that keywords can be implemented in the search") ## this is just to demonstrate
-print(get_most(['docker'], 5, info_all_proc))
+freq_proc_5 = get_most('', 5, info_all_proc)
+freq_proc_print = "\nMost frequent processes:\n"
+for proc in freq_proc_5:
+    freq_proc_print = freq_proc_print + "- " + str(proc[0]) + ": "+ str(proc[1]) +" occurrences\n"
+freq_proc_10 = dict(get_most('', 10, info_all_proc))
+infoGraph = makeGraphFromDict(freq_proc_10) # INFO GRAPH
 
-############################# TESTING ERROR COUNT ##################################
+#print("\nMost frequent processes (docker only): This is just to demonstrate that keywords can be implemented in the search") ## this is just to demonstrate
+#print(get_most(['docker'], 5, info_all_proc))
 
-print("Error count: ")
+################## ERROR COUNT + GRAPH #############################
+
+error_print = "\nError count: %d \nErrors by type: \n" % len(error_all)
 #print(error_all)
-print(count_error_by_type(error_all))
+errorsdataset = count_error_by_type(error_all)
+errorGraph = makeGraphFromDict(errorsdataset) # ERROR GRAPH
 
 ########## TESTING NARROW TIME ##########
 
@@ -403,3 +429,13 @@ print(count_error_by_type(error_all))
 #print(info_all_dict.keys())
 #time_dict = info_narrow_by_time([8, 21, 6,17,25], [8,21,6,29,16], info_dict) ##NEED TO FIX
 #print(time_dict[8][21].keyset())
+
+################### CONCATENATE + PRINT ALL STRINGS
+
+#print("%d unique threadnames, %d unique process names" % (len(list_threads), len(list_names))) ######## FOR TESTING; DELETE LATER
+#print("%d lines read\n%d info\n%d errors" % (lines, info, error))
+print(total_stats_print)
+print(freq_proc_print)
+print(infoGraph)
+print(error_print)
+print(errorGraph)
