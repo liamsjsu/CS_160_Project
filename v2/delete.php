@@ -63,6 +63,6 @@ if ($result->num_rows > 0) {
 }
 echo "<a href='files.php'>Back to Files</a>";
 // Once file is deleted, go back to file manager
-// header("Location: files.php");
-// die();
+header("Location: files.php");
+die();
 ?>
