@@ -1,0 +1,3 @@
+this txt file is here to maintain the /uploads/ folder in the git repository 
+since git doesnt store empty folders and this folder is necessary for the
+database uploads to work.

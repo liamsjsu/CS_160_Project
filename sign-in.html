@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>index</title>
+<link href="eggplant.css" rel="stylesheet" type="text/css">
+<script src="eggplant.js"></script>
+<meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="773730468254-82509noo29h6q37nbepago8ksko4a2as.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+</head>
+
+<body>
+<div class="container">
+    <div class="nav">
+        <a href="index.html">HOME</a>
+        <a href="#foot">ABOUT</a>
+        <div class = "drop">
+            <a onclick="drop()">ACCOUNT</a>
+            <div id="dropdown" class="drop-menu">
+                <a href="sign-in.html">Sign In</a>
+                <a href="" onclick="signOut();">Sign Out</a>
+<!--                <div class="g-signin2" data-onsuccess="onSignIn"></div>-->
+            </div>
+        </div>
+    </div>
+  <div class="list">
+      <h4>Sign In with Us</h4>
+      <form>
+          User name:<br>
+          <input type="text" name="name"><br>
+          Pass code:<br>
+          <input type="text" name="pass"><br>
+          <input type="submit">
+      </form>
+      <hr />
+      <h4>Or</h4>
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+  </div>
+  <section id="foot" class="footer_banner">
+    <h2>A TOOL CREATED BY </h2>
+	<h4>Team Eggplant</h4>
+	<p>(Liam Jensen, Gabriella Qiu, Patrick Leung, Henry Ngo, Blanchy Polancos)</p>
+	<h4><a href="https://github.com/liamsjsu/CS_160_Project/">Explore on Github</a></h4>
+	</section>
+  <!-- Copyrights Section -->
+  <div class="copyright">&copy;2018 - Team eggplant<strong></strong></div>
+</div>
+</body>
+</html>
