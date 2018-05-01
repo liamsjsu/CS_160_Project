@@ -30,7 +30,7 @@ if ($result->num_rows > 0) {
         // the work-around used was turning the name into an array so that the periods and spaces in file name in $_POST are left untouched
         // and can be used in sql statements without further string parsing
         $statement = "delete from logfiles where file_path = '".$_POST['data'][$row['file_name']]."'";
-        echo $statement;
+        echo "statement: ".$statement."<br>";
         if ($conn->query($statement) === TRUE) {
             echo "File deleted from database successfully<br>";
 
@@ -38,10 +38,13 @@ if ($result->num_rows > 0) {
             echo "Deleting file from server:...<br>";
             $dir = dirname($row['file_path']); // get the directory the file is in
             // array_map('unlink', glob("$dir/*.*")); // delete everything within that directory
-            unlink($row['file_path']);
-            unlink(dirname($row['file_path'])."/results/".basename($row['file_path']).".html");
-            echo $row['file_path']."<br>".dirname($row['file_path'])."/results/".basename($row['file_path']).".html<br>";
 
+            // when a delete button other than the first one is pressed, $_POST['data'][$row['file_name']] becomes equal to '', which does not delete anything/causes an error. If we just try to unlink $row['file_path'], then it will delete the wrong file, so... gotta pick the lesser of two evils here
+            // unlink($row['file_path']);
+            // unlink(dirname($row['file_path'])."/results/".basename($row['file_path']).".html");
+            // echo $row['file_path']."<br>".dirname($row['file_path'])."/results/".basename($row['file_path']).".html<br>";
+            unlink($_POST['data'][$row['file_name']]);
+            unlink(dirname($_POST['data'][$row['file_name']])."/results/".basename($_POST['data'][$row['file_name']]).".html");
 
             // with uniqueid's for files gone, we dont need below code, but it's nice to have t show progress
 

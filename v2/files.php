@@ -68,6 +68,7 @@ if ($result->num_rows > 0) { // data found (at least 1 row)
       echo "<td><a href='".dirname(substr($row['file_path'], 0, -3)).'/results/'.$row['file_name'].'.html'."'>View Analysis</a></td>";
       echo "<td><button type='submit' value='".$row["file_path"]."' name='data[".$row["file_name"]."]'>Delete File</button></td>";
       echo "</tr>";
+      // echo $row['file_path']."<br>".$row['file_name']."<br><br>";
   }
 } else {
   echo "No log files uploaded yet.<br>";
