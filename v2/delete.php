@@ -30,6 +30,7 @@ if ($result->num_rows > 0) {
         // the work-around used was turning the name into an array so that the periods and spaces in file name in $_POST are left untouched
         // and can be used in sql statements without further string parsing
         $statement = "delete from logfiles where file_path = '".$_POST['data'][$row['file_name']]."'";
+        echo $statement;
         if ($conn->query($statement) === TRUE) {
             echo "File deleted from database successfully<br>";
 
@@ -62,6 +63,6 @@ if ($result->num_rows > 0) {
 }
 echo "<a href='files.php'>Back to Files</a>";
 // Once file is deleted, go back to file manager
-header("Location: files.php");
-die();
+// header("Location: files.php");
+// die();
 ?>
