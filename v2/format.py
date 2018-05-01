@@ -1,20 +1,33 @@
-<!doctype html>
+#!/usr/bin/python
+import sys
+import subprocess
+import os
+
+file_dir = sys.argv[1] + "/results/"
+if not os.path.exists(file_dir):
+    os.makedirs(file_dir)
+log_file = sys.argv[2]
+output_file_name = sys.argv[3] + '.html'
+
+with open(file_dir + output_file_name, 'w') as output_file:
+    output_file.write("""<!doctype html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-<title>index</title>
-<link href="eggplant.css" rel="stylesheet" type="text/css">
-<script src="eggplant.js"></script>
+<title>Upload</title>
+<link href="../../../eggplant.css" rel="stylesheet" type="text/css">
+<script src="../../../eggplant.js"></script>
 <meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id" content="773730468254-82509noo29h6q37nbepago8ksko4a2as.apps.googleusercontent.com">
 <script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="../../../plotly-latest.min.js"></script>
 </head>
 
 <body>
 <div class="container">
     <div class="nav">
-        <a href="index.html">HOME</a>
+        <a href="../../../index.html">HOME</a>
         <a href="#about">ABOUT</a>
         <div class = "drop">
             <a onclick="drop()">ACCOUNT</a>
@@ -30,24 +43,13 @@
     <p class="txt3">A FREE LOG PROCESSING TOOL</p>
 </div>
 
-  <div class="row">
-    <div class="columns">
-	  <h2><a href="upload.html" id="upload">UPLOAD</a></h2>
-	  <input type="file" id="newFile" style="display: none" />
-	  <h4>NEW LOG FILES</h4>
-      <p>You can upload a local log file in order to store it in your account. You can access the file later in your account.</p>
-    </div>
-    <div class="columns">
-	  <h2><a href="files.php">MANAGE</a></h2>
-	  <h4>EXISTED LOG FILES</h4>
-      <p>Click to view the files stored in your account. A log-in process is required.</p>
-    </div>
-    <div class="columns">
-	  <h2><a href="results.html">VIEW</a></h2>
-	  <h4>PAST RESULTS</h4>
-      <p>The past analytic results are stored in your account. You can view the results in this page.</p>
-    </div>
-  </div>
+<div class="list">
+    <h2>""" + log_file + """</h2>""")
+    output_file.flush()
+    subprocess.call(['python', 'log_processingv3.py', log_file], stdout=output_file)
+    output_file.write("""
+    <p><a href="../../../index.html">Return to main menu</a></p>
+</div>
 
 <section class="about" id="about">
   <h2 class="parallax">ABOUT EGGPLANT</h2>
@@ -64,4 +66,4 @@
 <div class="copyright">&copy;2018 - Team eggplant<strong></strong></div>
 </div>
 </body>
-</html>
+</html>""")

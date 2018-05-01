@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-<title>index</title>
+<title>Files</title>
 <link href="eggplant.css" rel="stylesheet" type="text/css">
 <script src="eggplant.js"></script>
 <meta name="google-signin-scope" content="profile email">
@@ -14,7 +14,7 @@
 <body>
 <div class="container">
     <div class="nav">
-        <a href="index.html">HOME</a>
+        <a href="../../index.html">HOME</a>
         <a href="#about">ABOUT</a>
         <div class = "drop">
             <a onclick="drop()">ACCOUNT</a>
@@ -30,34 +30,18 @@
     <p class="txt3">A FREE LOG PROCESSING TOOL</p>
 </div>
 
-  <div class="row">
-    <div class="columns">
-	  <h2><a href="upload.html" id="upload">UPLOAD</a></h2>
-	  <input type="file" id="newFile" style="display: none" />
-	  <h4>NEW LOG FILES</h4>
-      <p>You can upload a local log file in order to store it in your account. You can access the file later in your account.</p>
-    </div>
-    <div class="columns">
-	  <h2><a href="files.php">MANAGE</a></h2>
-	  <h4>EXISTED LOG FILES</h4>
-      <p>Click to view the files stored in your account. A log-in process is required.</p>
-    </div>
-    <div class="columns">
-	  <h2><a href="results.html">VIEW</a></h2>
-	  <h4>PAST RESULTS</h4>
-      <p>The past analytic results are stored in your account. You can view the results in this page.</p>
-    </div>
-  </div>
+<div class="list">
+    <?php echo $content ?>
+</div>
 
 <section class="about" id="about">
-  <h2 class="parallax">ABOUT EGGPLANT</h2>
-  <p class="parallax_description">Eggplant is a free tool written in Python 3.0 for analyzing log files. It is a web-based tool, so the frontend is developed with html. It is only for educational use.</p>
+<h2 class="parallax">ABOUT EGGPLANT</h2>
+<p class="parallax_description">Eggplant is a free tool written in Python 3.0 for analyzing log files. It is a web-based tool, so the frontend is developed with html. It is only for educational use.</p>
 </section>
 <section class="footer_banner">
-  <h2>A TOOL CREATED BY </h2>
-  <h4>Team Eggplant</h4>
-  <p>(Gabriella Qiu, Patrick Leung, Henry Ngo, Blanchy Polancos)</p>
-  <h4><a href="https://github.com/liamsjsu/CS_160_Project/">Explore on Github</a></h4>
+<h4>Team Eggplant</h4>
+<p>(Blanchy Polancos, Gabriella Qiu, Henry Ngo, Patrick Leung)</p>
+<h4><a href="https://github.com/liamsjsu/CS_160_Project/">Explore on Github</a></h4>
 </section>
 
 <!-- Copyrights Section -->
