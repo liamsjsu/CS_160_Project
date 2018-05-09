@@ -1,4 +1,7 @@
 '''
+5/8:
+    prints tables
+
 WEEK OF 4/28:
     added graphs + prints grouped to bottom of code
 
@@ -402,14 +405,56 @@ vol = float(stats[1]/total_stats*100.0)
 prov = float(stats[2]/total_stats*100.0)
 blue = float(stats[3]/total_stats*100.0)
 han = float(stats[4]/total_stats*100.0)
-total_stats_print = "<h4>DockerServerController usage: %d %% </h4><h4>Volume usage: %d %% </h4><h4>Provision usage: %d %% </h4><h4>Blueprint usage: %d %% </h4><h4>Handler usage: %d %%</h4>" % (dsc, vol, prov, blue, han)
+#total_stats_print = "<h4>DockerServerController usage: %d %% </h4><h4>Volume usage: %d %% </h4><h4>Provision usage: %d %% </h4><h4>Blueprint usage: %d %% </h4><h4>Handler usage: %d %%</h4>" % (dsc, vol, prov, blue, han)
+total_stats_print = """
+<table>
+    <tr>
+        <th>Process</th>
+        <th>Percent of usage</th>
+    </tr>
+    <tr>
+        <td>DockerServerController</td>
+        <td> %d %% </td>
+    </tr>
+    <tr>
+        <td>Volume</td>
+        <td> %d %% </td>
+    </tr>
+    <tr>
+        <td>Provision</td>
+        <td> %d %% </td>
+    </tr>
+    <tr>
+        <td>Blueprint</td>
+        <td> %d %% </td>
+    </tr>
+    <tr>
+        <td>Handler</td>
+        <td> %d %% </td>
+    </tr>
+</table>
+"""  % (dsc, vol, prov, blue, han)
 
 ########## RETURNING MOST FREQUENT OCCURENCES + GRAPH ##########
 
 freq_proc_5 = get_most('', 5, info_all_proc)
-freq_proc_print = "<h4>Most frequent processes:</h4>"
+freq_proc_print = """<h4>Most frequent processes:</h4><br>
+<table>
+    <tr>
+        <th>Process</th>
+        <th>Occurences</th>
+    </tr>
+"""
 for proc in freq_proc_5:
-    freq_proc_print = freq_proc_print + "<li>- " + str(proc[0]) + ": "+ str(proc[1]) +" occurrences</li>"
+    #freq_proc_print = freq_proc_print + "<li>- " + str(proc[0]) + ": "+ str(proc[1]) +" occurrences</li>"
+    td = """
+    <tr>
+        <td> %s </td>
+        <td> %s </td>
+    </tr>
+    """ % (str(proc[0]), str(proc[1]))
+    freq_proc_print = freq_proc_print + td
+freq_proc_print = freq_proc_print + "</table>"
 freq_proc_10 = dict(get_most('', 10, info_all_proc))
 infoGraph = makeGraphFromDict(freq_proc_10) # INFO GRAPH
 
